@@ -2,6 +2,9 @@
   Logged in 
 {% endblock %}
 {% extends "base.html.twig" %}
+{% block navbar %}
+  <a href="/logout">log out</a>
+{% endblock %}
 {% block body %}
   <h1>Hello {{ app.user.getUsername() }}!</h1>
 {% endblock %}
