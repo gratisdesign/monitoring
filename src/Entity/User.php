@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -31,6 +33,16 @@ class User implements UserInterface{
    * @ORM\Column(type="string")
    */
   private $password;
+
+  /**
+   * @ORM\OneToMany(targetEntity=Domain::class, mappedBy="user", orphanRemoval=true)
+   */
+  private $domains;
+
+  public function __construct()
+  {
+      $this->domains = new ArrayCollection();
+  }
 
   public function getId(): ?int{
     return $this->id;
@@ -94,6 +106,36 @@ class User implements UserInterface{
   public function eraseCredentials(){
     // If you store any temporary, sensitive data on the user, clear it here
     // $this->plainPassword = null;
+  }
+
+  /**
+   * @return Collection|Domain[]
+   */
+  public function getDomains(): Collection
+  {
+      return $this->domains;
+  }
+
+  public function addDomain(Domain $domain): self
+  {
+      if (!$this->domains->contains($domain)) {
+          $this->domains[] = $domain;
+          $domain->setUser($this);
+      }
+
+      return $this;
+  }
+
+  public function removeDomain(Domain $domain): self
+  {
+      if ($this->domains->removeElement($domain)) {
+          // set the owning side to null (unless already changed)
+          if ($domain->getUser() === $this) {
+              $domain->setUser(null);
+          }
+      }
+
+      return $this;
   }
 }
 

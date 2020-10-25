@@ -1,11 +1,14 @@
 {% block title %}
-  Logged in 
+  {{ domain.name }} domain
 {% endblock %}
 {% extends "base.html.twig" %}
 {% block navbar %}
   <a href="/logout">log out</a>
+  <a href="/monitoring">home</a>
   <a href="/monitoring/domain">domains</a>
 {% endblock %}
 {% block body %}
-  <h1>Hello {{ app.user.getUsername() }}!</h1>
+  <a href="/monitoring/domain/{{ domain.uid }}/edit">edit</a>
+  <h1>{{ domain.name }}</h1>
+  <p>{{ domain.address }}</p>
 {% endblock %}

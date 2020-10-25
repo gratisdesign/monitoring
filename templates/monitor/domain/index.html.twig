@@ -1,0 +1,16 @@
+{% block title %}
+  Domain index 
+{% endblock %}
+{% extends "base.html.twig" %}
+{% block navbar %}
+  <a href="/logout">log out</a>
+  <a href="/monitoring">home</a>
+{% endblock %}
+{% block body %}
+  <a href="/monitoring/domain/create">add new domain</a>
+  <ul>
+    {% for domain in domains %}
+    <li><a href="/monitoring/domain/{{ domain.uid }}/view">{{ domain.name }}</a></li>
+    {% endfor %}
+  </ul>
+{% endblock %}

@@ -1,11 +1,13 @@
 {% block title %}
-  Logged in 
+  Domain index 
 {% endblock %}
 {% extends "base.html.twig" %}
 {% block navbar %}
   <a href="/logout">log out</a>
+  <a href="/monitoring">home</a>
   <a href="/monitoring/domain">domains</a>
 {% endblock %}
 {% block body %}
-  <h1>Hello {{ app.user.getUsername() }}!</h1>
+  <h1>Create a domain</h1>
+  {{ form(form) }}
 {% endblock %}
